@@ -1,0 +1,78 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd"><html lang="en"><head><meta http-equiv="content-type" content="text/html; charset=utf-8">
+
+<title>Panorama - Report</title>
+
+</head> <body>
+
+<p><b>Author: Shlok Mahesh Koirala</b></p>
+<p>Date: 12th February 2023</p>
+
+<h4>1: Take four photograph pairs or sets of 4.</h4>
+
+<img src="Images/S1-im1.png" alt="im1" width="300">
+<img src="Images/S1-im2.png" alt="im2" width="300">
+<!--<br><img src="S1-im3.png" alt="im3" width="300">
+<img src="S1-im4.png" alt="im4" width="300">-->
+<br><br>
+<img src="Images/S2-im1.png" alt="im1" width="300">
+<img src="Images/S2-im2.png" alt="im2" width="300">
+<!--<br><img src="S2-im3.png" alt="im3" width="300">
+<img src="S2-im4.png" alt="im4" width="300">-->
+<br><br>
+<img src="Images/S3-im1.png" alt="im1" width="300">
+<img src="Images/S3-im2.png" alt="im2" width="300">
+<!--<br><img src="S3-im3.png" alt="im3" width="300">
+<img src="S3-im4.png" alt="im4" width="300">-->
+<br><br>
+<img src="Images/S4-im1.png" alt="im1" width="300">
+<img src="Images/S4-im2.png" alt="im2" width="300">
+<!--<br><img src="S4-im3.png" alt="im3" width="300">
+<img src="S4-im4.png" alt="im4" width="300">-->
+<br><br>
+
+<h4>2: FAST feature detector</h4>
+<img src="Images/S1-fast.png" alt="S1-fast" width="300">
+<img src="Images/S2-fast.png" alt="S2-fast" width="300">
+
+<h4>2: FASTR feature detector</h4>
+<img src="Images/S1-fastR.png" alt="S1-fastR" width="300">
+<img src="Images/S2-fastR.png" alt="S2-fastR" width="300">
+
+<p>For the first image (the cereal box), almost no corners were removed by the Harris cornerness measure. This is because the detected corners are useful corners and changing the threshold further lost important information
+    For the lamp on the other hand, there are very few features and having a higher threshold would lose part of limited information in the image causing issues for the panorama step
+    The average time taken to find the FAST features was 0.2381s and for FASTR features after fast features were already computed was 0.2588s, resulting in a cumulative time of roughly 0.5s
+    Although this is not a lot, it is mathematically double of simply finding FAST features. However, this is inexpensive compared to the time save in later stages
+</p>
+
+
+<h4>3: Point description and matching</h4>
+<img src="Images/S1-fastMatch.png" alt="S1-fastMatch" width="600">
+<br><br>
+<img src="Images/S1-fastRMatch.png" alt="S1-fastRMatch" width="600">
+<br><br>
+<img src="Images/S2-fastMatch.png" alt="S2-fastMatch" width="600">
+<br><br>
+<img src="Images/S2-fastRMatch.png" alt="S2-fastRMatch" width="600">
+
+<p>Used FREAK for cereal box (first set) and ORB for the remaining
+    For the first set, points that were matched using the FASTR features have many more matching corners compared to the FAST points
+    In the second set however, only 1 more match is found using the FASTR points versus the FAST points since it has less features to begin with.
+    The FAST computation took 0.2005s while the FASTR computation took 0.1008s which is only half the time as the former or twice as fast!
+</p>
+    
+<h4>4: RANSAC and Panoramas</h4>
+<img src="Images/S1-panorama.png" alt="S1-panorama" width="600">
+<br><br>
+<img src="Images/S2-panorama.png" alt="S2-panorama" width="600">
+<br><br>
+<img src="Images/S3-panorama.png" alt="S3-panorama" width="600">
+<br><br>
+<img src="Images/S4-panorama.png" alt="S4-panorama" width="600">
+
+<p>The maximum number of iterations was set to 100 for the FASTR feature panoramas. This resulted in really good looking and well matched panoramas.
+    On the other hand, the maximum number of trials was set to 10000 for the FAST feature panoramas which resulted in mostly good images.
+    The FASTR maximum number of trials (100) is much is much lesser than that for the FAST (10000).
+</p>
+
+
+</body> </html>
